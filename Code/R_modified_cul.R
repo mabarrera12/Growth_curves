@@ -3,7 +3,7 @@
 # ============================================================
 
 # Input files -------------------------------------------------
-file <- "Data/KlebHR_2.4.25_Plate1.txt"   # Cytation 7 absorbance data
+file <- "Data/Example_data_1.txt"   # Cytation 7 absorbance data
 file_layout <- "Data/plate_layout.xlsx"
 
 
