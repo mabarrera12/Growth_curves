@@ -1,8 +1,12 @@
-# Growth Curves: 96-Well Plate Hold-Time Analysis
+# Growth Curves: 96-Well Plate Inflection-Time Analysis
 
-This repository contains an R workflow for analyzing 96-well plate-reader growth curves and estimating hold time for each populated well.
+This repository contains an R workflow for analyzing 96-well plate-reader growth curves and estimating the inflection time for each populated well.
 
-The analysis uses a smoothing spline fitted to each growth curve and identifies the hold time from the maximum second derivative. Wells with mean growth below the defined threshold are assigned a hold time of 24 hours.
+The analysis fits a smoothing spline to each growth curve and identifies the inflection time based on the maximum second derivative. A plate-layout template representing the organization of the 96-well plate is required. The layout is flexible and can be adapted to different experimental designs. The code uses the sample names assigned to individual wells in the plate layout to organize the analysis and group the resulting graphs. Users are encouraged to retain a copy of the plate layout for each experimental run so that results can be traced back to the original plate organization.
+
+The current version of the code is designed to calculate inflection time and does not automatically calculate hold time. Hold time may be derived by subtracting the inflection time of bacterial control wells from the inflection time of the corresponding experimental wells.
+
+This workflow was developed as a tool to facilitate the analysis of high-throughput plate-reader data. Users should review the generated graphs and calculated values to confirm that the identified inflection times are consistent with the observed growth curves.
 
 ## Repository structure
 
@@ -27,7 +31,7 @@ Growth_curves/
     Main script for analyzing your own data. When run, it asks for the path to the plate-reader `.txt` file and the plate-layout `.xlsx` file.
 
 -   `R/hold_time_analysis.R`\
-    Contains the functions used for plate organization, growth-curve analysis, hold-time calculation, plotting, summary generation, and output creation. Users normally do not need to edit this file.
+    Contains the functions used for plate organization, growth-curve analysis, inflection-time calculation, plotting, summary generation, and output creation. Users normally do not need to edit this file.
 
 -   `install_packages.R`\
     Installs the R packages required by the analysis.
@@ -108,12 +112,6 @@ Example/plate_layout.xlsx
 
 and writes the example results to the corresponding output folder.
 
-[*Additional notes for users*]{.underline}
-
-The plate layout is flexible and amenable to changes. The code analyzes the absorbance data and groups the graph display by the name given to each well. It is recommended that users maintain a record of the plate layout for each run so they can back-track results.
-
-The present code was designed to calculate inflection time and does not automatically provide a calculation of hold time. However, hold time can be calculated by deducting the inflection time in bacterial control wells from the inflection time in experimental wells. This code was designed as a tool to aid with analysis of high throughput data. It is recommended that users inspect the generated graphs and values.
-
 ## Analyzing your own data
 
 Run:
@@ -174,7 +172,7 @@ For each populated well, the workflow:
 3.  Evaluates the second derivative over 4,000 evenly spaced time points.
 4.  Defines hold time from the maximum second derivative, beginning from the fourth derivative point.
 5.  Assigns a hold time of 24 hours when the mean OD600 remains below the threshold of `0.150`.
-6.  Groups replicate wells by sample name and calculates the mean hold time, standard deviation, replicate count, and individual replicate values.
+6.  Groups replicate wells by sample name and calculates the mean inflection time, standard deviation, replicate count, and individual replicate values.
 
 The analysis parameters are defined in `R/hold_time_analysis.R`.
 
@@ -183,7 +181,7 @@ The analysis parameters are defined in `R/hold_time_analysis.R`.
 The analysis generates:
 
 -   an interactive `.html` report containing the plate layout, sample summary, and individual growth curves
--   a `.tsv` table containing the summarized hold-time results
+-   a `.tsv` table containing the summarized inflection-time results
 
 Generated output should not be treated as source code and normally does not need to be committed to GitHub.
 
