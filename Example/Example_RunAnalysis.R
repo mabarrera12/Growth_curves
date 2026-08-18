@@ -10,13 +10,13 @@ source(file.path("R", "hold_time_analysis.R"))
 # -------------------------------------------------------------------------
 
 # Plate-reader output file
-file <- file.path("Data", "Example_data_1.txt")
+file <- file.path("Example", "Example_data_1.txt")
 
 # Plate-layout Excel file
-file_layout <- file.path("Data", "plate_layout.xlsx")
+file_layout <- file.path("Example", "plate_layout.xlsx")
 
 # Folder where the HTML report and TSV summary will be written
-output_dir <- "Output"
+output_dir <- "Example/Output"
 
 # -------------------------------------------------------------------------
 # RUN ANALYSIS

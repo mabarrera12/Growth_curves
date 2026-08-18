@@ -41,7 +41,7 @@ cat("\n96-WELL PLATE HOLD-TIME ANALYSIS\n\n")
 data_file   <- ask_file("Plate-reader .txt file path: ", "txt")
 layout_file <- ask_file("Plate-layout .xlsx file path: ", "xlsx")
 
-output_dir <- "Output"
+output_dir <- "Output" # Modify to de desired output directory
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
 cat("\nRunning analysis...\n")
